@@ -2,7 +2,6 @@ import torch
 from torch.utils.data import DataLoader
 import data_utils
 import pdb
-import fairseq
 # define some dummy data
 def collate(samples, pad_idx, eos_idx):
 
