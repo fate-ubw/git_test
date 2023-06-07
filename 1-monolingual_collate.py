@@ -10,19 +10,19 @@ def collate(samples, pad_idx, eos_idx):
 
     def merge(key, is_list=False): #key :source & target
         if is_list: # If is_list is True, merge will merge a list of tokens instead of a single token.
-            res = [] #要看看数据是不是list
+            res = [] 
             for i in range(len(samples[0][key])):
                 res.append(data_utils.collate_tokens(
                     [s[key][i] for s in samples], pad_idx, eos_idx, left_pad=False,
-                )) #每一个s其实就是ChunkedDataset，整合的数据
+                )) 
             return res
         else: #len of list = 1
 
-            return data_utils.collate_tokens( #这里直接就拿到了sample，看来我得先吧samplereshape一遍
+            return data_utils.collate_tokens( 
 
                 [s[key] for s in samples], pad_idx, eos_idx, left_pad=False,
             )
-    src_tokens = merge('source') #这个里面拿到的式sample这个dic中 'source'里面的数据，拿到的就是tensor
+    src_tokens = merge('source') 
     if samples[0]['target'] is not None:
         is_target_list = isinstance(samples[0]['target'], list) #
         target = merge('target', is_target_list)
@@ -39,7 +39,7 @@ def collate(samples, pad_idx, eos_idx):
                 s['source'].numel() for s in samples
             ]),
         },
-        'target': target, #这部分就需要重写了，
+        'target': target, 
     }
 
 
